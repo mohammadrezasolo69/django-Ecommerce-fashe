@@ -4,7 +4,6 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
-
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
@@ -14,11 +13,10 @@ class UserCreationForm(forms.ModelForm):
         fields = ('email', 'first_name', 'last_name')
 
     def clean_password2(self):
-        password1 = self.cleaned_data.get("password1")
-        password2 = self.cleaned_data.get("password2")
-        if password1 and password2 and password1 != password2:
+        cd = self.cleaned_data
+        if (cd['password1'] and cd['password2']) and (cd['password2'] != cd['password1']):
             raise ValidationError("Passwords don't match")
-        return password2
+        return cd['password2']
 
     def save(self, commit=True):
         user = super().save(commit=False)

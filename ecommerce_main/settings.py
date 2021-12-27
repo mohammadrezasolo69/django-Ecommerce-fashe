@@ -14,6 +14,7 @@ SECRET_KEY = 'django-insecure-vm=h2k4^zzf@=(b4i!dq006^x-74$ok4e+te3n#@svi)ly_0^7
 DEBUG = True
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = 'ecommerce_user.user'
 
 # Application definition
 
@@ -27,6 +28,7 @@ INSTALLED_APPS = [
 
     # my app
     'ecommerce_user.apps.EcommerceUserConfig',
+    'ecommerce_product.apps.EcommerceProductConfig',
 ]
 
 MIDDLEWARE = [
