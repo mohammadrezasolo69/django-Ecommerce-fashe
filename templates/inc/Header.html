@@ -33,7 +33,7 @@
         <div class="wrap_header">
             <!-- Logo -->
             <a href="index.html" class="logo">
-                <img src="{% static 'images/icons/logo.png' %}" alt="IMG-LOGO">
+                <img src="{% static 'home/images/icons/logo.png' %}" alt="IMG-LOGO">
             </a>
 
             <!-- Menu -->
@@ -50,7 +50,7 @@
                         </li>
 
                         <li>
-                            <a href="product.html">Shop</a>
+                            <a href="{% url 'product:list_product' %}">Shop</a>
                         </li>
 
                         <li class="sale-noti">
@@ -79,13 +79,13 @@
             <!-- Header Icon -->
             <div class="header-icons">
                 <a href="#" class="header-wrapicon1 dis-block">
-                    <img src="{% static 'images/icons/icon-header-01.png' %}" class="header-icon1" alt="ICON">
+                    <img src="{% static 'home/images/icons/icon-header-01.png' %}" class="header-icon1" alt="ICON">
                 </a>
 
                 <span class="linedivide1"></span>
 
                 <div class="header-wrapicon2">
-                    <img src="{% static 'images/icons/icon-header-02.png' %}" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                    <img src="{% static 'home/images/icons/icon-header-02.png' %}" class="header-icon1 js-show-header-dropdown" alt="ICON">
                     <span class="header-icons-noti">0</span>
 
                     <!-- Header cart noti -->
