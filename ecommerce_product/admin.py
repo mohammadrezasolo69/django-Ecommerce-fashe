@@ -17,10 +17,10 @@ class CategoryProductsAdmin(admin.ModelAdmin):
 
 @admin.register(StoreProducts)
 class StoreProductsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'show_discount_and_price', 'label', 'is_active', 'available_count')
+    list_display = ('title', 'show_discount_and_price', 'label', 'is_active', 'available_count')
     list_editable = ('is_active', 'label',)
-    list_filter = ('title', 'is_active', 'category', 'price', 'label',)
-    search_fields = ('title', 'category', 'label',)
+    list_filter = ('title', 'is_active',  'price', 'label',)
+    search_fields = ('title','label',)
 
     @admin.display(description='price')
     def show_discount_and_price(self, obj):

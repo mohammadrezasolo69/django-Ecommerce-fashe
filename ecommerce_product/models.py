@@ -48,7 +48,7 @@ class StoreProducts(models.Model):
         ('new', 'new'),
         ('None', 'None')
     )
-    category = models.ForeignKey(CategoryProducts, on_delete=models.CASCADE, related_name='scategory')
+    category = models.ForeignKey(CategoryProducts, on_delete=models.CASCADE,related_name='scategory',null=True,blank=True)
     size_color = models.ManyToManyField(SizeProducts)
     title = models.CharField(max_length=300)
     img = models.ImageField(upload_to='StoreProducts/%y/%m/%d')
