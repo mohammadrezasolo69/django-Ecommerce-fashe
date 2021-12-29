@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.db.models.signals import pre_save
 from django.urls import reverse
 
@@ -39,7 +40,12 @@ class SizeProducts(models.Model):
 
 
 class StoreProductsManager(models.Manager):
-    pass
+    def search_product_Q(self, query):
+        lookup = (
+                Q(title__icontains=query) |
+                Q(description_long__icontains=query)
+        )
+        return self.get_queryset().filter(lookup, is_active=True).distinct()
 
 
 class StoreProducts(models.Model):
@@ -48,7 +54,8 @@ class StoreProducts(models.Model):
         ('new', 'new'),
         ('None', 'None')
     )
-    category = models.ForeignKey(CategoryProducts, on_delete=models.CASCADE,related_name='scategory',null=True,blank=True)
+    category = models.ForeignKey(CategoryProducts, on_delete=models.CASCADE, related_name='scategory', null=True,
+                                 blank=True)
     size_color = models.ManyToManyField(SizeProducts)
     title = models.CharField(max_length=300)
     img = models.ImageField(upload_to='StoreProducts/%y/%m/%d')
@@ -60,6 +67,7 @@ class StoreProducts(models.Model):
     description_long = models.TextField()
     is_active = models.BooleanField(default=True)
     available_count = models.IntegerField(default=1)
+    objects = StoreProductsManager()
 
     def __str__(self):
         return f'{self.title}|{self.id}'

@@ -16,9 +16,9 @@ class list_products(ListView):
 
 
 def detail_products(request, id_product, slug_product):
-    item = get_object_or_404(StoreProducts,id=id_product,slug=slug_product,is_active=True)
+    item = get_object_or_404(StoreProducts, id=id_product, slug=slug_product, is_active=True)
     related = StoreProducts.objects.filter(category=item.category).exclude(id=id_product)
-    return render(request, 'product/detail_product.html', context={'detail': item,'related':related})
+    return render(request, 'product/detail_product.html', context={'detail': item, 'related': related})
 
 
 class category_products(ListView):
@@ -38,3 +38,15 @@ class category_products(ListView):
 def render_category(request):
     category = CategoryProducts.objects.filter(is_active=True)
     return render(request, 'product/render_category.html', context={'category': category})
+
+
+class search_products(ListView):
+    template_name = 'product/list_product.html'
+    paginate_by = 9
+
+    def get_queryset(self):
+        request = self.request
+        query = request.GET.get('q')
+        if query is not None:
+            return StoreProducts.objects.search_product_Q(query=query)
+        return StoreProducts.objects.filter(is_active=True)
