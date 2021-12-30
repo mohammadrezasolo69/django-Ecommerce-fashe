@@ -5,7 +5,14 @@ from .models import StoreProducts, CategoryProducts, Slider
 
 def home(request):
     slider = Slider.objects.filter(is_active=True)
-    return render(request, 'product/home.html', context={'slider': slider})
+    new_products = StoreProducts.objects.filter(label='new').order_by('-id')
+    discounted_products = StoreProducts.objects.filter(label='sale').order_by('-id')
+    context = {
+        'slider': slider,
+        'discounted_products': discounted_products,
+        'new_products': new_products
+    }
+    return render(request, 'product/home.html', context=context)
 
 
 class list_products(ListView):
