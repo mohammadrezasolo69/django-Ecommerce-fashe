@@ -54,8 +54,7 @@ class StoreProducts(models.Model):
         ('new', 'new'),
         ('None', 'None')
     )
-    category = models.ForeignKey(CategoryProducts, on_delete=models.CASCADE, related_name='scategory', null=True,
-                                 blank=True)
+    category = models.ForeignKey(CategoryProducts, on_delete=models.CASCADE, related_name='scategory')
     size_color = models.ManyToManyField(SizeProducts)
     title = models.CharField(max_length=300)
     img = models.ImageField(upload_to='StoreProducts/%y/%m/%d')
@@ -86,3 +85,14 @@ def store_product_pre_save_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(store_product_pre_save_receiver, StoreProducts)
+
+
+# /////////////////////////////// Slider \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+class Slider(models.Model):
+    img = models.ImageField(upload_to='slider')
+    title = models.CharField(max_length=200)
+    sub_title = models.CharField(max_length=100, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title

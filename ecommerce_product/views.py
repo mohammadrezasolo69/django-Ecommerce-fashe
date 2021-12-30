@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404, Http404
 from django.views.generic import ListView
-from .models import StoreProducts, CategoryProducts
-from .utils import my_grouper
+from .models import StoreProducts, CategoryProducts, Slider
 
 
 def home(request):
-    return render(request, 'product/home.html')
+    slider = Slider.objects.filter(is_active=True)
+    return render(request, 'product/home.html', context={'slider': slider})
 
 
 class list_products(ListView):
@@ -13,6 +13,11 @@ class list_products(ListView):
     paginate_by = 9
     template_name = 'product/list_product.html'
     ordering = ['-id']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['result'] = StoreProducts.objects.filter(is_active=True).count()
+        return context
 
 
 def detail_products(request, id_product, slug_product):
