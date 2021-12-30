@@ -7,10 +7,12 @@ def home(request):
     slider = Slider.objects.filter(is_active=True)
     new_products = StoreProducts.objects.filter(label='new').order_by('-id')
     discounted_products = StoreProducts.objects.filter(label='sale').order_by('-id')
+    category_products = CategoryProducts.objects.filter(is_active=True).order_by('id')[:3]
     context = {
         'slider': slider,
         'discounted_products': discounted_products,
-        'new_products': new_products
+        'new_products': new_products,
+        'category_products': category_products
     }
     return render(request, 'product/home.html', context=context)
 

@@ -1,14 +1,14 @@
 from django.db import models
 from django.db.models import Q
-from django.db.models.signals import pre_save
 from django.urls import reverse
-
+from django.db.models.signals import pre_save
 from ecommerce_product.slug_generate import unique_slug_generator
 
 
 # ///////////////////////////// Category Products \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class CategoryProducts(models.Model):
     title = models.CharField(max_length=200)
+    img = models.ImageField(upload_to='category',blank=True,null=True)
     slug = models.SlugField(unique=True, blank=True)
     is_active = models.BooleanField(default=True)
 
