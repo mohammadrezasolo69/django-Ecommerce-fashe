@@ -21,12 +21,12 @@
 						fashe@example.com
 					</span>
 
-{#                <div class="topbar-language rs1-select2">#}
-{#                    <select class="selection-1" name="time">#}
-{#                        <option>USD</option>#}
-{#                        <option>EUR</option>#}
-{#                    </select>#}
-{#                </div>#}
+                {#                <div class="topbar-language rs1-select2">#}
+                {#                    <select class="selection-1" name="time">#}
+                {#                        <option>USD</option>#}
+                {#                        <option>EUR</option>#}
+                {#                    </select>#}
+                {#                </div>#}
             </div>
         </div>
 
@@ -42,7 +42,7 @@
                     <ul class="main_menu">
                         <li>
                             <a href="{% url 'product:home' %}">Home</a>
-                       </li>
+                        </li>
 
                         <li>
                             <a href="{% url 'product:list_product' %}">Shop</a>
@@ -69,15 +69,24 @@
             </div>
 
             <!-- Header Icon -->
-            <div class="header-icons">
-                <a href="#" class="header-wrapicon1 dis-block">
-                    <img src="{% static 'home/images/icons/icon-header-01.png' %}" class="header-icon1" alt="ICON">
-                </a>
 
+
+            <div class="header-icons">
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'account:logout' %}" style="margin-right: 30px">Logout</a>
+                    <a href="http://127.0.0.1:8000/admin/" class="header-wrapicon1 dis-block">
+                        <img src="{% static 'home/images/icons/icon-header-01.png' %}" class="header-icon1" alt="ICON">
+                    </a>
+                    {% else %}
+                    <a href="{% url 'account:login' %}" class="header-wrapicon1 dis-block">
+                        <img src="{% static 'home/images/icons/icon-header-01.png' %}" class="header-icon1" alt="ICON">
+                    </a>
+                {% endif %}
                 <span class="linedivide1"></span>
 
                 <div class="header-wrapicon2">
-                    <img src="{% static 'home/images/icons/icon-header-02.png' %}" class="header-icon1 js-show-header-dropdown" alt="ICON">
+                    <img src="{% static 'home/images/icons/icon-header-02.png' %}"
+                         class="header-icon1 js-show-header-dropdown" alt="ICON">
                     <span class="header-icons-noti">0</span>
 
                     <!-- Header cart noti -->
@@ -156,6 +165,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Header Mobile -->
     <div class="wrap_header_mobile">

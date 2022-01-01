@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'ecommerce_product.apps.EcommerceProductConfig',
     'ecommerce_about.apps.EcommerceAboutConfig',
     'ecommerce_contact.apps.EcommerceContactConfig',
+    'ecommerce_account.apps.EcommerceAccountConfig',
 ]
 
 MIDDLEWARE = [

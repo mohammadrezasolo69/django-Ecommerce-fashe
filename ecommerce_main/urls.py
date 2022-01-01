@@ -6,6 +6,7 @@ urlpatterns = [
     path('', include('ecommerce_product.urls')),
     path('', include('ecommerce_about.urls')),
     path('', include('ecommerce_contact.urls')),
+    path('accounts/', include('ecommerce_account.urls')),
 ]
 
 # /////////////////// config static ///////////////////
