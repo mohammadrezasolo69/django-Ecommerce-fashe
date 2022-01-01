@@ -64,3 +64,11 @@ class search_products(ListView):
         if query is not None:
             return StoreProducts.objects.search_product_Q(query=query)
         return StoreProducts.objects.filter(is_active=True)
+
+
+class sale_products(ListView):
+    template_name = 'product/sale_product.html'
+    paginate_by = 9
+    ordering = ['-id']
+    queryset = StoreProducts.objects.filter(label__exact='sale')
+    context_object_name = 'sale_products'

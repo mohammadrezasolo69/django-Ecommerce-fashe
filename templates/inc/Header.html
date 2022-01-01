@@ -42,24 +42,16 @@
                     <ul class="main_menu">
                         <li>
                             <a href="{% url 'product:home' %}">Home</a>
-{#                            <ul class="sub_menu">#}
-{#                                <li><a href="index.html">Homepage V1</a></li>#}
-{#                                <li><a href="home-02.html">Homepage V2</a></li>#}
-{#                                <li><a href="home-03.html">Homepage V3</a></li>#}
-{#                            </ul>#}
-                        </li>
+                       </li>
 
                         <li>
                             <a href="{% url 'product:list_product' %}">Shop</a>
                         </li>
 
                         <li class="sale-noti">
-                            <a href="product.html">Sale</a>
+                            <a href="{% url 'product:sale_product' %}">Sale</a>
                         </li>
 
-                        <li>
-                            <a href="cart.html">Features</a>
-                        </li>
 
                         <li>
                             <a href="blog.html">Blog</a>

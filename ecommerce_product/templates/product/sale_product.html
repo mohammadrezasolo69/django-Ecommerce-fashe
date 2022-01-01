@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load render_partial %}
+
+
+{% block main %}
+
+    <!-- Title Page -->
+    <section class="bg-title-page p-t-50 p-b-40 flex-col-c-m"
+             style="background-image: url('{% static "home/images/header_sale.jpg" %}');width: 100%;height: 70vh;background-position: center">
+{#        <h2 class="l-text2 t-center" style="background: #1b1b1b;border-radius: 5px">#}
+{#            Sale Products#}
+{#        </h2>#}
+    </section>
+
+
+    <!-- Content page -->
+    <section class="bgwhite p-t-55 p-b-65">
+        <div class="container">
+            <div class="row">
+
+                {% render_partial 'product:render_category' %}
+
+                <div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
+                    <div class="row">
+
+                        {% for sale_item in sale_products %}
+
+                            <div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
+                            <!-- Block2 -->
+                            <div class="block2">
+
+                            {% if  sale_item.label == 'None' %}
+                                <div class="block2-img wrap-pic-w of-hidden pos-relative">
+                            {% elif sale_item.label == 'sale' %}
+                                <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelsale">
+                            {% else %}
+                                <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
+                            {% endif %}
+
+
+                        <img src="{{ sale_item.img.url }}" alt="IMG-PRODUCT" style="height: 250px">
+
+                        <div class="block2-overlay trans-0-4">
+                            <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
+                                <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
+                                <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+                            </a>
+
+                            <div class="block2-btn-addcart w-size1 trans-0-4">
+                                <!-- Button -->
+                                <button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="block2-txt p-t-20">
+                            <a href="{{ sale_item.get_absolute_url }}" class="block2-name dis-block s-text3 p-b-5">
+                                {{ sale_item.title|truncatewords:5 }}
+                            </a>
+
+                            {% if sale_item.discount_price > 0 %}
+                                <span class="block2-price m-text6 p-r-5">
+										<i><del style="color: #003eff;margin-right: 8px">${{ sale_item.price }}</del></i>
+                                    ${{ sale_item.discount_price_finally }}
+									</span>
+                            {% else %}
+                                <span class="block2-price m-text6 p-r-5">
+										${{ sale_item.price }}
+									</span>
+                            {% endif %}
+
+                        </div>
+                        </div>
+                        </div>
+
+                        {% endfor %}
+
+                        <!-- Pagination -->
+                        <div class="pagination flex-m flex-w p-t-26">
+                            <a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
+                            <a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+    </section>
+
+
+
+
+    <!-- Back to top -->
+    <div class="btn-back-to-top bg0-hov" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="fa fa-angle-double-up" aria-hidden="true"></i>
+		</span>
+    </div>
+
+    <!-- Container Selection -->
+    <div id="dropDownSelect1"></div>
+    <div id="dropDownSelect2"></div>
+
+
+    <!--===============================================================================================-->
+    <div>
+        <script type="text/javascript">
+            $(".selection-1").select2({
+                minimumResultsForSearch: 20,
+                dropdownParent: $('#dropDownSelect1')
+            });
+
+            $(".selection-2").select2({
+                minimumResultsForSearch: 20,
+                dropdownParent: $('#dropDownSelect2')
+            });
+        </script>
+        <!--===============================================================================================-->
+        <script type="text/javascript" src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
+
+        <!--===============================================================================================-->
+        <script type="text/javascript" src="{% static 'vendor/sweetalert/sweetalert.min.js' %}"></script>
+        <script type="text/javascript">
+            $('.block2-btn-addcart').each(function () {
+                var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+                $(this).on('click', function () {
+                    swal(nameProduct, "is added to cart !", "success");
+                });
+            });
+
+            $('.block2-btn-addwishlist').each(function () {
+                var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+                $(this).on('click', function () {
+                    swal(nameProduct, "is added to wishlist !", "success");
+                });
+            });
+        </script>
+
+        <!--===============================================================================================-->
+        <script type="text/javascript" src="{% static 'home/vendor/noui/nouislider.min.js' %}"></script>
+        <script type="text/javascript">
+            /*[ No ui ]
+            ===========================================================*/
+            var filterBar = document.getElementById('filter-bar');
+
+            noUiSlider.create(filterBar, {
+                start: [50, 200],
+                connect: true,
+                range: {
+                    'min': 50,
+                    'max': 200
+                }
+            });
+
+            var skipValues = [
+                document.getElementById('value-lower'),
+                document.getElementById('value-upper')
+            ];
+
+            filterBar.noUiSlider.on('update', function (values, handle) {
+                skipValues[handle].innerHTML = Math.round(values[handle]);
+            });
+        </script>
+    </div>
+    <!--===============================================================================================-->
+{% endblock %}
