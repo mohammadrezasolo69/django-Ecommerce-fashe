@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'django_render_partial',
     'ecommerce_user.apps.EcommerceUserConfig',
     'ecommerce_product.apps.EcommerceProductConfig',
+    'ecommerce_about.apps.EcommerceAboutConfig',
+    'ecommerce_contact.apps.EcommerceContactConfig',
 ]
 
 MIDDLEWARE = [
