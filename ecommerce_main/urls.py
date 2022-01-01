@@ -5,6 +5,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('ecommerce_product.urls')),
     path('', include('ecommerce_about.urls')),
+    path('', include('ecommerce_contact.urls')),
 ]
 
 # /////////////////// config static ///////////////////
