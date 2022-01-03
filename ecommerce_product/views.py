@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, Http404
 from django.views.generic import ListView
 from .models import StoreProducts, CategoryProducts, Slider
+from .forms import AddCart
 
 
 def home(request):
@@ -32,7 +33,9 @@ class list_products(ListView):
 def detail_products(request, id_product, slug_product):
     item = get_object_or_404(StoreProducts, id=id_product, slug=slug_product, is_active=True)
     related = StoreProducts.objects.filter(category=item.category).exclude(id=id_product)
-    return render(request, 'product/detail_product.html', context={'detail': item, 'related': related})
+    count_product = AddCart()
+    context = {'detail': item, 'related': related, 'count_product': count_product}
+    return render(request, 'product/detail_product.html', context=context)
 
 
 class category_products(ListView):

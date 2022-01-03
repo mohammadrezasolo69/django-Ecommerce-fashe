@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+
+    <table class="table table-dark">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Unit Price</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><img src=" {{ item.product.img.url }}" style="width: 50px;height: 50px"></td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.total_price }}</td>
+                <td><a href="{% url 'cart:remove_cart' item.product.id %}">Remove</a></td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td>Total</td>
+            <td colspan="4"></td>
+            <td>{{ cart.get_total_price }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+{% endblock %}
