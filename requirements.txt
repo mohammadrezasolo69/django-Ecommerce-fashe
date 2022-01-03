@@ -1,0 +1,7 @@
+asgiref==3.4.1
+backports.zoneinfo==0.2.1
+Django==4.0
+django-render-partial==0.4
+Pillow==8.4.0
+psycopg2-binary==2.9.2
+sqlparse==0.4.2
